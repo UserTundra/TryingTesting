@@ -47,8 +47,7 @@ namespace Tests
 
 
         }
-
-        
+                
 
         [TestMethod]
         public void MyIntAddTest()
@@ -76,5 +75,111 @@ namespace Tests
             result = first.Add(second);
             Assert.AreEqual(result.Value, (-12).ToString());
         }
+
+        [TestMethod]
+        public void MyIntSubtractTest()
+        {
+            int c = 5;
+            int d = 7;
+
+            MyInt first = new MyInt(c);
+            MyInt second = new MyInt(d);
+            MyInt result = first.Subtract(second);
+            Assert.AreEqual(result.Value, (-2).ToString());
+
+            first = new MyInt(-c);
+            second = new MyInt(d);
+            result = first.Subtract(second);
+            Assert.AreEqual(result.Value, (-12).ToString());
+
+            first = new MyInt(c);
+            second = new MyInt(-d);
+            result = first.Subtract(second);
+            Assert.AreEqual(result.Value, 12.ToString());
+
+            first = new MyInt(-c);
+            second = new MyInt(-d);
+            result = first.Subtract(second);
+            Assert.AreEqual(result.Value, 2.ToString());
+        }
+
+        [TestMethod]
+        public void MyIntAbsTest()
+        {
+            MyInt a = new MyInt(5);
+            Assert.AreEqual(a.Abs().Value, 5.ToString());
+
+            MyInt b = new MyInt(-14);
+            Assert.AreEqual(b.Abs().Value, (14).ToString());
+
+            MyInt c = new MyInt(0);
+            Assert.AreEqual(c.Abs().Value, 0.ToString());
+        }
+
+        [TestMethod]
+        public void MyIntMaxTest()
+        {
+            int a = 3;
+            int b = 9;
+            int c = 0;
+
+            MyInt first = new MyInt(a);
+            MyInt second = new MyInt(b);
+            Assert.AreEqual(second.Max(first).Value, 9.ToString());
+
+            first = new MyInt(-a);
+            second = new MyInt(b);
+            Assert.AreEqual(second.Max(first).Value, 9.ToString());
+
+            first = new MyInt(a);
+            second = new MyInt(-b);
+            Assert.AreEqual(second.Max(first).Value, 3.ToString());
+
+            first = new MyInt(-a);
+            second = new MyInt(-b);
+            Assert.AreEqual(second.Max(first).Value, (-3).ToString());
+
+            first = new MyInt(a);
+            second = new MyInt(c);
+            Assert.AreEqual(second.Max(first).Value, 3.ToString());
+
+            first = new MyInt(-b);
+            second = new MyInt(c);
+            Assert.AreEqual(second.Max(first).Value, 0.ToString());
+        }
+
+        [TestMethod]
+        public void MyIntMinTest()
+        {
+            int a = 3;
+            int b = 9;
+            int c = 0;
+
+            MyInt first = new MyInt(a);
+            MyInt second = new MyInt(b);
+            Assert.AreEqual(second.Min(first).Value, 3.ToString());
+
+            first = new MyInt(-a);
+            second = new MyInt(b);
+            Assert.AreEqual(second.Min(first).Value, (-3).ToString());
+
+            first = new MyInt(a);
+            second = new MyInt(-b);
+            Assert.AreEqual(second.Min(first).Value, (-9).ToString());
+
+            first = new MyInt(-a);
+            second = new MyInt(-b);
+            Assert.AreEqual(second.Min(first).Value, (-9).ToString());
+
+            first = new MyInt(a);
+            second = new MyInt(c);
+            Assert.AreEqual(second.Min(first).Value, 0.ToString());
+
+            first = new MyInt(-b);
+            second = new MyInt(c);
+            Assert.AreEqual(second.Min(first).Value, (-9).ToString());
+        }
+
+
     }
 }
