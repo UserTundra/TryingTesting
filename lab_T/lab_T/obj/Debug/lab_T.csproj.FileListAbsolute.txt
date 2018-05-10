@@ -1,0 +1,11 @@
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\bin\Debug\lab_T.exe.config
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\bin\Debug\lab_T.exe
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\bin\Debug\lab_T.pdb
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\obj\Debug\lab_T.csprojResolveAssemblyReference.cache
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\obj\Debug\lab_T.csproj.CoreCompileInputs.cache
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\obj\Debug\lab_T.exe
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\obj\Debug\lab_T.pdb
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\bin\Debug\nunit.framework.dll
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\bin\Debug\nunit.framework.pdb
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\bin\Debug\nunit.framework.xml
+C:\учеба\C# MVC\TESTS\Tests_lab\lab_T\lab_T\obj\Debug\lab_T.csproj.CopyComplete
