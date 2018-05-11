@@ -58,7 +58,7 @@ namespace Tests
             MyInt first = new MyInt(a);
             MyInt second = new MyInt(b);
             MyInt result = first.Add(second);
-            Assert.AreEqual(result.Value, 12.ToString());
+            Assert.AreEqual(result.Value, (12).ToString());
 
             first = new MyInt(-a);
             second = new MyInt(b);

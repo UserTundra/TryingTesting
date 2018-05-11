@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace lab_T
 {
     
-    public class MyInt
+    public class MyInt : IComparable<MyInt>
     {
         public enum SignEnum { Positive=0 , Negative=1 };
 
         private StringBuilder _value = new StringBuilder();
-        private int sign;
 
+        private int sign;
 
         public String Value
         {
@@ -74,32 +74,68 @@ namespace lab_T
             {
                 var signReplaced = argument.Copy()
                                            .ChangeSign();
-                return Add(argument);
+                return Add(signReplaced);
             }
-                
-
-            
 
             MyInt maxAbs = this.MaxAbsSource(argument);
             MyInt minAbs = this.Abs().Min(argument.Abs());
 
+            int resultSign = MaxAbsSource(argument.ChangeSign()).sign;
 
+            string source =  maxAbs.AbsString();
+            string to =  minAbs.AbsString().PadLeft(source.Length,'0');
 
-            return new MyInt("0");
+            int idx = source.Length;
+
+            StringBuilder result = new StringBuilder();
+            int sourcePointer = (int)Char.GetNumericValue(source.Last());
+            while (idx > 0 )
+            {
+                --idx;
+                int summ = sourcePointer - (int)Char.GetNumericValue(to[idx]);
+                if(idx > 0)
+                    sourcePointer = (int)Char.GetNumericValue(source[idx - 1]);
+                if (summ < 0)
+                {
+                    sourcePointer--;
+                    summ = 10 - summ;
+                }
+                result.Append(summ);
+                
+            }
+
+            var ans = new MyInt(new String(result.ToString().Reverse().ToArray()));
+
+            if (ans.Abs().Value == "0")
+                ans.sign = (int)SignEnum.Positive;
+            else
+                ans.sign = resultSign;
+
+            return ans;
         }
 
         public MyInt Add(MyInt argument)
         {
             if (this.sign != argument.sign)
             {
-                MyInt signReplaced = argument.Copy()
+                if(this.sign == (int)SignEnum.Negative)
+                {
+                    MyInt signReplaced = this.Copy()
                                              .ChangeSign();
-                return Subtract(argument);
-            }
+                    return argument.Subtract(signReplaced);
+                }
+                else
+                {
+                    MyInt signReplaced = argument.Copy()
+                                             .ChangeSign();
+                    return this.Subtract(signReplaced);
+                }
                 
-            
-            string first = "0"+this.Value;
-            string second = "0"+argument.Value;
+            }
+
+
+            string first = "0" + this.AbsString(); 
+            string second = "0" + argument.AbsString();
 
             int firstIdx = first.Length;
             int secondIdx = second.Length;
@@ -123,6 +159,36 @@ namespace lab_T
             return new MyInt(result.ToArray());
         }
         
+        public MyInt Multiple(MyInt argument)
+        {
+            MyInt zero = new MyInt(0);
+            MyInt decrement = argument.sign == (int)SignEnum.Positive ? new MyInt(1) : new MyInt(-1);
+            MyInt firstArg = this.Copy();
+            while(argument.CompareTo(zero) != 0)
+            {
+                firstArg = firstArg.Add(this);
+                argument.Subtract(decrement);
+            }
+            return firstArg;
+        }
+
+        public MyInt Divide(MyInt argument)
+        {
+            if (CompareTo(argument) == 0)
+                return new MyInt(0);
+            else if (CompareTo(argument) < 0)
+                return new MyInt(1);
+
+            return null;
+        }
+
+        public long LongValue()
+        {
+            long ans = 0;
+
+            return ans;
+        }
+
 
         public MyInt Min(MyInt argument)
         {
@@ -197,11 +263,12 @@ namespace lab_T
 
         public MyInt Abs()
         {
-            var buf = this.sign;
-            this.sign = (int)SignEnum.Positive;
-            var result = new MyInt(this.Value);
-            this.sign = buf;
-            return result;
+            return new MyInt(_value.ToString());
+        }
+
+        public String AbsString()
+        {
+            return _value.ToString();
         }
 
         public MyInt Copy()
@@ -214,6 +281,23 @@ namespace lab_T
             sign = sign == (int)SignEnum.Positive ? (int)SignEnum.Negative : (int)SignEnum.Positive;
             return this;
         }
-        
+
+        public int CompareTo(MyInt argument)
+        {
+            if (argument.sign != this.sign)
+                return this.sign == (int)SignEnum.Positive ? 1 : -1;
+
+            MyInt min = Min(argument);
+            MyInt max = Max(argument);
+
+            if (min.Value == max.Value)
+                return 0;
+
+            if (this.Value == max.Value)
+                return 1;
+            else
+                return -1;
+
+        }
     }
 }
