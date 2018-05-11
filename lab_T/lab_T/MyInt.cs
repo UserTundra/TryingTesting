@@ -33,6 +33,9 @@ namespace lab_T
             _value.Append(value.Where(x => char.IsDigit(x))
                                .SkipWhile(x=>x=='0')
                                .ToArray());
+
+            if (_value.Length == 0)
+                _value.Append('0');
         }
 
         public MyInt(int value)
@@ -67,8 +70,13 @@ namespace lab_T
 
         public MyInt Subtract(MyInt argument)
         {
-            if (this.sign == argument.sign)
+            if (this.sign != argument.sign)
+            {
+                var signReplaced = argument.Copy()
+                                           .ChangeSign();
                 return Add(argument);
+            }
+                
 
             
 
@@ -83,7 +91,12 @@ namespace lab_T
         public MyInt Add(MyInt argument)
         {
             if (this.sign != argument.sign)
+            {
+                MyInt signReplaced = argument.Copy()
+                                             .ChangeSign();
                 return Subtract(argument);
+            }
+                
             
             string first = "0"+this.Value;
             string second = "0"+argument.Value;
@@ -96,7 +109,6 @@ namespace lab_T
 
             while (firstIdx > 0 || secondIdx > 0)
             {
-
                 int summ = buf;
                 if (firstIdx > 0)
                     summ += (int)Char.GetNumericValue(first[--firstIdx]);
@@ -110,6 +122,7 @@ namespace lab_T
             result.Push((byte)this.sign);
             return new MyInt(result.ToArray());
         }
+        
 
         public MyInt Min(MyInt argument)
         {
@@ -135,7 +148,13 @@ namespace lab_T
         private MyInt GetExtremum(MyInt argument, bool needMin)
         {
             if (this.sign != argument.sign)
-                return this.sign == (int)SignEnum.Positive ? this : argument;
+            {
+                if(needMin)
+                    return this.sign == (int)SignEnum.Positive ? argument : this;
+                else
+                    return this.sign == (int)SignEnum.Positive ? this : argument;
+            }
+                
 
 
             MyInt minAbs = null;
@@ -163,14 +182,17 @@ namespace lab_T
                     }
                     else if(argument.Value[i] - this.Value[i] < 0)
                     {
-                        minAbs = this;
-                        maxAbs = argument;
+                        minAbs = argument;
+                        maxAbs = this;
                         break;
                     }
                 }
             }
 
-            return needMin ? minAbs : maxAbs;
+            if (this.sign == (int)SignEnum.Positive)
+                return needMin ? minAbs : maxAbs;
+            else
+                return needMin ? maxAbs : minAbs;
         }
 
         public MyInt Abs()
@@ -182,7 +204,16 @@ namespace lab_T
             return result;
         }
 
+        public MyInt Copy()
+        {
+            return new MyInt(Value);
+        }
 
+        public MyInt ChangeSign()
+        {
+            sign = sign == (int)SignEnum.Positive ? (int)SignEnum.Negative : (int)SignEnum.Positive;
+            return this;
+        }
         
     }
 }
