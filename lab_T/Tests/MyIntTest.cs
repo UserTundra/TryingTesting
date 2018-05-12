@@ -28,22 +28,22 @@ namespace Tests
             byte[] b2 = { 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1 };
 
             MyInt like_simple_int = new MyInt(i);
-            Assert.AreEqual(like_simple_int.Value, i.ToString());
+            Assert.AreEqual(i.ToString(), like_simple_int.Value);
 
             MyInt like_simple_int2 = new MyInt(-i);
-            Assert.AreEqual(like_simple_int2.Value, (-i).ToString());
+            Assert.AreEqual((-i).ToString(), like_simple_int2.Value);
 
             MyInt like_simple_string = new MyInt(s);
-            Assert.AreEqual(like_simple_string.Value, s);
+            Assert.AreEqual(s, like_simple_string.Value);
 
             MyInt like_simple_string2 = new MyInt("-"+s);
-            Assert.AreEqual(like_simple_string2.Value, "-" + s);
+            Assert.AreEqual("-" + s, like_simple_string2.Value);
 
             MyInt like_byte_massive = new MyInt(b1);
-            Assert.AreEqual(like_byte_massive.Value, "-1101000001110101001");
+            Assert.AreEqual("-1101000001110101001", like_byte_massive.Value);
 
             MyInt like_byte_massive2 = new MyInt(b2);
-            Assert.AreEqual(like_byte_massive2.Value, "1101000001110101001");
+            Assert.AreEqual("1101000001110101001", like_byte_massive2.Value);
 
 
         }
@@ -58,22 +58,22 @@ namespace Tests
             MyInt first = new MyInt(a);
             MyInt second = new MyInt(b);
             MyInt result = first.Add(second);
-            Assert.AreEqual(result.Value, (12).ToString());
+            Assert.AreEqual((12).ToString(), result.Value);
 
             first = new MyInt(-a);
             second = new MyInt(b);
             result = first.Add(second);
-            Assert.AreEqual(result.Value, 2.ToString());
+            Assert.AreEqual(2.ToString(), result.Value);
 
             first = new MyInt(a);
             second = new MyInt(-b);
             result = first.Add(second);
-            Assert.AreEqual(result.Value, (-2).ToString());
+            Assert.AreEqual((-2).ToString(), result.Value);
 
             first = new MyInt(-a);
             second = new MyInt(-b);
             result = first.Add(second);
-            Assert.AreEqual(result.Value, (-12).ToString());
+            Assert.AreEqual((-12).ToString(), result.Value);
         }
 
         [TestMethod]
@@ -85,35 +85,35 @@ namespace Tests
             MyInt first = new MyInt(c);
             MyInt second = new MyInt(d);
             MyInt result = first.Subtract(second);
-            Assert.AreEqual(result.Value, (-2).ToString());
+            Assert.AreEqual((-2).ToString(), result.Value);
 
             first = new MyInt(-c);
             second = new MyInt(d);
             result = first.Subtract(second);
-            Assert.AreEqual(result.Value, (-12).ToString());
+            Assert.AreEqual((-12).ToString(), result.Value);
 
             first = new MyInt(c);
             second = new MyInt(-d);
             result = first.Subtract(second);
-            Assert.AreEqual(result.Value, 12.ToString());
+            Assert.AreEqual(12.ToString(), result.Value);
 
             first = new MyInt(-c);
             second = new MyInt(-d);
             result = first.Subtract(second);
-            Assert.AreEqual(result.Value, 2.ToString());
+            Assert.AreEqual(2.ToString(), result.Value);
         }
 
         [TestMethod]
         public void MyIntAbsTest()
         {
             MyInt a = new MyInt(5);
-            Assert.AreEqual(a.Abs().Value, 5.ToString());
+            Assert.AreEqual(5.ToString(), a.Abs().Value);
 
             MyInt b = new MyInt(-14);
-            Assert.AreEqual(b.Abs().Value, (14).ToString());
+            Assert.AreEqual((14).ToString(), b.Abs().Value);
 
             MyInt c = new MyInt(0);
-            Assert.AreEqual(c.Abs().Value, 0.ToString());
+            Assert.AreEqual(0.ToString(), c.Abs().Value);
         }
 
         [TestMethod]
@@ -125,27 +125,27 @@ namespace Tests
 
             MyInt first = new MyInt(a);
             MyInt second = new MyInt(b);
-            Assert.AreEqual(second.Max(first).Value, 9.ToString());
+            Assert.AreEqual(9.ToString(), second.Max(first).Value);
 
             first = new MyInt(-a);
             second = new MyInt(b);
-            Assert.AreEqual(second.Max(first).Value, 9.ToString());
+            Assert.AreEqual(9.ToString(), second.Max(first).Value);
 
             first = new MyInt(a);
             second = new MyInt(-b);
-            Assert.AreEqual(second.Max(first).Value, 3.ToString());
+            Assert.AreEqual(3.ToString(), second.Max(first).Value);
 
             first = new MyInt(-a);
             second = new MyInt(-b);
-            Assert.AreEqual(second.Max(first).Value, (-3).ToString());
+            Assert.AreEqual((-3).ToString(), second.Max(first).Value);
 
             first = new MyInt(a);
             second = new MyInt(c);
-            Assert.AreEqual(second.Max(first).Value, 3.ToString());
+            Assert.AreEqual(3.ToString(), second.Max(first).Value);
 
             first = new MyInt(-b);
             second = new MyInt(c);
-            Assert.AreEqual(second.Max(first).Value, 0.ToString());
+            Assert.AreEqual(0.ToString(), second.Max(first).Value);
         }
 
         [TestMethod]
@@ -157,27 +157,163 @@ namespace Tests
 
             MyInt first = new MyInt(a);
             MyInt second = new MyInt(b);
-            Assert.AreEqual(second.Min(first).Value, 3.ToString());
+            Assert.AreEqual(3.ToString(), second.Min(first).Value);
 
             first = new MyInt(-a);
             second = new MyInt(b);
-            Assert.AreEqual(second.Min(first).Value, (-3).ToString());
+            Assert.AreEqual((-3).ToString(), second.Min(first).Value);
 
             first = new MyInt(a);
             second = new MyInt(-b);
-            Assert.AreEqual(second.Min(first).Value, (-9).ToString());
+            Assert.AreEqual((-9).ToString(), second.Min(first).Value);
 
             first = new MyInt(-a);
             second = new MyInt(-b);
-            Assert.AreEqual(second.Min(first).Value, (-9).ToString());
+            Assert.AreEqual((-9).ToString(), second.Min(first).Value);
 
             first = new MyInt(a);
             second = new MyInt(c);
-            Assert.AreEqual(second.Min(first).Value, 0.ToString());
+            Assert.AreEqual(0.ToString(), second.Min(first).Value);
 
             first = new MyInt(-b);
             second = new MyInt(c);
-            Assert.AreEqual(second.Min(first).Value, (-9).ToString());
+            Assert.AreEqual((-9).ToString(), second.Min(first).Value);
+        }
+
+        [TestMethod]
+        public void MyIntMultiplyTest()
+        {
+            int a = 3;
+            int b = 9;
+            int c = 0;
+
+
+            MyInt first = new MyInt(a);
+            MyInt second = new MyInt(b);
+            Assert.AreEqual(27.ToString(), second.Multiply(first).Value);
+
+            first = new MyInt(-a);
+            second = new MyInt(b);
+            Assert.AreEqual((-27).ToString(), second.Multiply(first).Value);
+
+            first = new MyInt(a);
+            second = new MyInt(-b);
+            Assert.AreEqual((-27).ToString(), second.Multiply(first).Value);
+
+            first = new MyInt(-a);
+            second = new MyInt(-b);
+            Assert.AreEqual(27.ToString(), second.Multiply(first).Value);
+            
+            first = new MyInt(a);
+            second = new MyInt(c);
+            Assert.AreEqual(0.ToString(), second.Multiply(first).Value);
+
+            first = new MyInt(-b);
+            second = new MyInt(c);
+            Assert.AreEqual(0.ToString(), second.Multiply(first).Value);
+        }
+
+        [TestMethod]
+        public void MyIntDivideTest()
+        {
+            int a = 3;
+            int b = 10;
+            int c = 0;
+
+            MyInt first = new MyInt(a);
+            MyInt second = new MyInt(b);
+            Assert.AreEqual(3.ToString(), second.Divide(first).Value);
+            Assert.AreEqual(0.ToString(), first.Divide(second).Value);
+
+            first = new MyInt(-a);
+            second = new MyInt(b);
+            Assert.AreEqual((-3).ToString(), second.Divide(first).Value);
+            Assert.AreEqual(0.ToString(), first.Divide(second).Value);
+
+            first = new MyInt(a);
+            second = new MyInt(-b);
+            Assert.AreEqual((-3).ToString(), second.Divide(first).Value);
+            Assert.AreEqual(0.ToString(), first.Divide(second).Value);
+
+            first = new MyInt(-a);
+            second = new MyInt(-b);
+            Assert.AreEqual(3.ToString(), second.Divide(first).Value);
+            Assert.AreEqual(0.ToString(), first.Divide(second).Value);
+
+            first = new MyInt(a);
+            second = new MyInt(c);
+            Assert.AreEqual(0.ToString(), second.Divide(first).Value);
+            Assert.IsNull(first.Divide(second));
+
+            first = new MyInt(-b);
+            second = new MyInt(c);
+            Assert.AreEqual(0.ToString(), second.Divide(first).Value);
+            Assert.IsNull(first.Divide(second));
+        }
+
+        [TestMethod]
+        public void MyIntGcdTest()
+        {
+            int a = 7;
+            int b = 1;
+            int c = 28;
+            int d = 4;
+            int e = 0;
+            int f = 14;
+
+            MyInt first = new MyInt(a);
+            MyInt second = new MyInt(b);
+            Assert.AreEqual(1.ToString(), first.Gcd(second).Value);
+
+            first = new MyInt(-a);
+            second = new MyInt(b);
+            Assert.AreEqual(1.ToString(), first.Gcd(second).Value);
+
+            first = new MyInt(a);
+            second = new MyInt(c);
+            Assert.AreEqual(7.ToString(), first.Gcd(second).Value);
+
+            first = new MyInt(c);
+            second = new MyInt(d);
+            Assert.AreEqual(4.ToString(), first.Gcd(second).Value);
+
+            first = new MyInt(a);
+            second = new MyInt(d);
+            Assert.AreEqual(1.ToString(), first.Gcd(second).Value);
+
+            first = new MyInt(d);
+            second = new MyInt(e);
+            Assert.IsNull(first.Gcd(second));
+
+            first = new MyInt(c);
+            second = new MyInt(f);
+            Assert.AreEqual(7.ToString(), first.Gcd(second).Value);
+        }
+
+        [TestMethod]
+        public void MyIntCompareTest()
+        {
+            int a = 11;
+            int b = 11;
+            int c = 15;
+
+            MyInt first = new MyInt(a);
+            MyInt second = new MyInt(b);
+            Assert.AreEqual(0.ToString(), first.CompareTo(second));
+
+            first = new MyInt(a);
+            second = new MyInt(-b);
+            Assert.AreEqual(1.ToString(), first.CompareTo(second));
+
+            first = new MyInt(b);
+            second = new MyInt(c);
+            Assert.AreEqual((-1).ToString(), first.CompareTo(second));
+        }
+
+        [TestMethod]
+        public void MyIntLongValueTest()
+        {
+
         }
 
 

@@ -80,7 +80,7 @@ namespace lab_T
             MyInt maxAbs = this.MaxAbsSource(argument);
             MyInt minAbs = this.Abs().Min(argument.Abs());
 
-            int resultSign = MaxAbsSource(argument.ChangeSign()).sign;
+            int resultSign = MaxAbsSource(argument.Copy().ChangeSign()).sign;
 
             string source =  maxAbs.AbsString();
             string to =  minAbs.AbsString().PadLeft(source.Length,'0');
@@ -105,6 +105,7 @@ namespace lab_T
             }
 
             var ans = new MyInt(new String(result.ToString().Reverse().ToArray()));
+
 
             if (ans.Abs().Value == "0")
                 ans.sign = (int)SignEnum.Positive;
@@ -159,17 +160,21 @@ namespace lab_T
             return new MyInt(result.ToArray());
         }
         
-        public MyInt Multiple(MyInt argument)
+
+        public MyInt Multiply(MyInt argument)
         {
             MyInt zero = new MyInt(0);
+            MyInt answer = new MyInt(0);
             MyInt decrement = argument.sign == (int)SignEnum.Positive ? new MyInt(1) : new MyInt(-1);
-            MyInt firstArg = this.Copy();
-            while(argument.CompareTo(zero) != 0)
+            MyInt addition = this;
+            if (decrement.sign == (int)SignEnum.Negative)
+                addition = this.Copy().ChangeSign();
+            while (argument.CompareTo(zero) != 0)
             {
-                firstArg = firstArg.Add(this);
-                argument.Subtract(decrement);
+                answer = answer.Add(addition);
+                argument = argument.Subtract(decrement);
             }
-            return firstArg;
+            return answer;
         }
 
         public MyInt Divide(MyInt argument)
@@ -202,6 +207,7 @@ namespace lab_T
 
         private MyInt MaxAbsSource(MyInt argument, bool isNeedMin = false)
         {
+
             MyInt maxAbs = this.Abs().Max(argument.Abs());
             MyInt minAbs = this.Abs().Min(argument.Abs());
 
@@ -254,6 +260,9 @@ namespace lab_T
                     }
                 }
             }
+
+            if (minAbs == null)
+                return this;
 
             if (this.sign == (int)SignEnum.Positive)
                 return needMin ? minAbs : maxAbs;
