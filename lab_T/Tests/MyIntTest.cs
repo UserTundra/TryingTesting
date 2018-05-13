@@ -82,10 +82,17 @@ namespace Tests
             int c = 5;
             int d = 7;
 
+            
+
             MyInt first = new MyInt(c);
             MyInt second = new MyInt(d);
             MyInt result = first.Subtract(second);
             Assert.AreEqual((-2).ToString(), result.Value);
+
+            first = new MyInt(10);
+            second = new MyInt(3);
+            Assert.AreEqual(7.ToString(), first.Subtract(second).Value);
+
 
             first = new MyInt(-c);
             second = new MyInt(d);
@@ -283,10 +290,11 @@ namespace Tests
 
             first = new MyInt(d);
             second = new MyInt(e);
-            Assert.IsNull(first.Gcd(second));
+            Assert.AreEqual(4.ToString(), first.Gcd(second).Value);
+           
 
-            first = new MyInt(c);
-            second = new MyInt(f);
+            first = new MyInt(21);
+            second = new MyInt(14);
             Assert.AreEqual(7.ToString(), first.Gcd(second).Value);
         }
 
@@ -299,20 +307,30 @@ namespace Tests
 
             MyInt first = new MyInt(a);
             MyInt second = new MyInt(b);
-            Assert.AreEqual(0.ToString(), first.CompareTo(second));
+            Assert.AreEqual(0, first.CompareTo(second));
 
             first = new MyInt(a);
             second = new MyInt(-b);
-            Assert.AreEqual(1.ToString(), first.CompareTo(second));
+            Assert.AreEqual(1, first.CompareTo(second));
 
             first = new MyInt(b);
             second = new MyInt(c);
-            Assert.AreEqual((-1).ToString(), first.CompareTo(second));
+            Assert.AreEqual( -1, first.CompareTo(second));
         }
 
         [TestMethod]
         public void MyIntLongValueTest()
         {
+            string shortValue = "123123213";
+            string longVaule = Int64.MaxValue.ToString() + "999999999999999999999999999999999999999";
+
+            MyInt value = new MyInt(shortValue);
+            Assert.AreEqual(Convert.ToInt64(shortValue), value.LongValue());
+
+            value = new MyInt(longVaule);
+            Assert.AreEqual(Int64.MaxValue, value.LongValue());
+
+
 
         }
 

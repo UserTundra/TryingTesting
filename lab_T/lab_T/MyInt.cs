@@ -12,6 +12,8 @@ namespace lab_T
     {
         public enum SignEnum { Positive=0 , Negative=1 };
 
+        public enum Comparing { Bigger=1, Equals=0, Less=-1}
+
         private StringBuilder _value = new StringBuilder();
 
         private int sign;
@@ -98,7 +100,7 @@ namespace lab_T
                 if (summ < 0)
                 {
                     sourcePointer--;
-                    summ = 10 - summ;
+                    summ = 10 + summ;
                 }
                 result.Append(summ);
                 
@@ -179,19 +181,51 @@ namespace lab_T
 
         public MyInt Divide(MyInt argument)
         {
-            if (CompareTo(argument) == 0)
-                return new MyInt(0);
-            else if (CompareTo(argument) < 0)
-                return new MyInt(1);
+            var dividedNumber = this.Abs();
+            var divider = argument.Abs();
 
-            return null;
+            if (dividedNumber.CompareTo(divider) == 0)
+                return new MyInt(1);
+            else if (dividedNumber.CompareTo(divider) < 0)
+                return new MyInt(0);
+            if (divider.Value == "0")
+                return null;
+
+            int resultSign = this.sign == argument.sign ? (int)SignEnum.Positive : (int)SignEnum.Negative;
+
+            MyInt ans = new MyInt(0);
+            MyInt increment = new MyInt(1);
+            
+            while(dividedNumber.CompareTo(divider) != (int)Comparing.Less)
+            {
+                dividedNumber = dividedNumber.Subtract(divider);
+                ans = ans.Add(increment);
+            }
+
+            ans.sign = resultSign;
+            return ans;
         }
 
         public long LongValue()
         {
             long ans = 0;
+            var len = Int64.MaxValue.ToString().Length;
+            var result = Convert.ToInt64(this.Value.Substring(0, Math.Min(len,this.Value.Length) ));
+            return result;
+        }
 
-            return ans;
+        private MyInt MOD(MyInt argument)
+        {
+            var div = this.Divide(argument);
+            var result = this.Subtract(div.Multiply(argument));
+            return result;
+        }
+
+        public MyInt Gcd(MyInt argument)
+        {
+            if (argument.CompareTo(new MyInt(0)) == (int)Comparing.Equals)
+                return this;
+            return argument.Gcd(this.MOD(argument));
         }
 
 
@@ -300,12 +334,12 @@ namespace lab_T
             MyInt max = Max(argument);
 
             if (min.Value == max.Value)
-                return 0;
+                return (int)Comparing.Equals;
 
             if (this.Value == max.Value)
-                return 1;
+                return (int)Comparing.Bigger;
             else
-                return -1;
+                return (int)Comparing.Less;
 
         }
     }
